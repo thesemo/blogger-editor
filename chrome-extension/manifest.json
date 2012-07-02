@@ -1,0 +1,36 @@
+{
+  "name": "Blogger Template Editor",
+  "version": "0.1",
+  "description": "An editor for blogger template",
+  "background" : {
+    "page": "background.html"
+  },
+  "permissions": [
+    "tabs",
+    "webRequest",
+    "webRequestBlocking",
+    "http://www.blogger.com/",
+    "https://www.blogger.com/",
+    "http://www.blogger.com/*",
+    "https://www.blogger.com/*"
+  ],
+  "content_scripts" : [
+    {
+      "matches" : [
+        "http://www.blogger.com/*",
+        "https://www.blogger.com/*"
+      ],
+      "js" : [
+        "js/contentscript.js"
+      ],
+      "run_at" : "document_idle",
+      "all_frames" : false
+    }
+  ],
+  "page_action" :
+  {
+    "default_icon" : "img/blogger-editor.png",
+    "default_title" : "Show an editor for blogger template"
+  },
+  "manifest_version": 2
+}

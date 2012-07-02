@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ace Editor Sample</title>
+<script type="text/javascript">
+${ace.js}
+</script>
+<script type="text/javascript">
+${theme-chrome.js}
+</script>
+<script type="text/javascript">
+${mode-html.js}
+</script>
+<style>
+#source {
+	position: absolute;
+	display: none;
+}
+
+#editor {
+	position: absolute;
+	left: 1%;
+	top: 1%;
+	width: 97%;
+	height: 93%;
+}
+
+#attClose {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	color: #999;
+	cursor: pointer;
+	font-family: Arial, sans-serif;
+	font-size: 15px;
+	text-decoration: none;
+}
+
+#attClose:visited {
+	color: #999;
+	cursor: pointer;
+	font-family: Arial, sans-serif;
+	font-size: 15px;
+	text-decoration: none;
+}
+
+#btnClose {
+	position: absolute;
+	right: 5px;
+	bottom: 5px;
+	border-radius: 2px;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	color: #222;
+	cursor: pointer;
+	height: 27px;
+	padding: 0 10px;
+	line-height: 26px;
+	margin: 0;
+	text-align: center;
+	box-sizing: content-box;
+	vertical-align: middle;
+	font-family: Arial, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+}
+</style>
+</head>
+<body>
+	<textarea id="source">
+${source}
+	</textarea>
+	<div id="editor"></div>
+	<a id="attClose" href="#" title="${close.title}">X</a>
+	<button id="btnClose">${close.title}</button>
+	<script>
+		var editor = ace.edit("editor");
+		editor.setTheme("ace/theme/chrome");
+		var HtmlMode = require("ace/mode/html").Mode;
+		editor.getSession().setMode(new HtmlMode());
+		
+		var source = document.getElementById("source");
+		editor.insert(source.value);
+		editor.addEventListener("change", function(e){
+			source.value = editor.getSession().getDocument().getValue();
+		});
+	</script>
+</body>
+</html>

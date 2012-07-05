@@ -81,7 +81,7 @@ function replaceAll(str, originStr, replaceStr) {
 mainframe = fetchUrl(chrome.extension.getURL("../html/mainframe.html"));
 mainframe = replaceAll(mainframe, "${ace.js}", fetchUrl(chrome.extension
 		.getURL("../lib/ace-0.2.0/ace.js")));
-mainframe = replaceAll(mainframe, "${theme-chrome.js}",
+mainframe = replaceAll(mainframe, "${theme.js}",
 		fetchUrl(chrome.extension.getURL("../lib/ace-0.2.0/theme-chrome.js")));
-mainframe = replaceAll(mainframe, "${mode-html.js}", fetchUrl(chrome.extension
+mainframe = replaceAll(mainframe, "${mode.js}", fetchUrl(chrome.extension
 		.getURL("../lib/ace-0.2.0/mode-html.js")));

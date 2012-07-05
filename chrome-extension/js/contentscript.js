@@ -1,4 +1,5 @@
 var editorFrame = document.createElement("iframe");
+editorFrame.name = "editorFrame";
 editorFrame.style.cssText = convertJsonToCss({
 	position : "fixed",
 	left : "0px",
@@ -60,25 +61,34 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
 	}
 });
 
-function showEditor(source){
+function showEditor(requestHtml){
 	editorFrame.style.display = "inline";
-	var html = source;
-	html = replaceAll(html, "${source}", getSource());
+	var html = requestHtml;
+	var source = getSource();
+	// source = replaceAll(source, "&", "&amp;");
+	// html = replaceAll(html, "${source}", source);
 	html = replaceAll(html, "${close.title}", getCloseTitle());
 	editorDocument.open();
 	editorDocument.write(html);
+	editorDocument.getElementById("source").value = source;
 	editorDocument.close();
 	var attClose = editorDocument.getElementById("attClose");
 	if( attClose ){
-		attClose.onclick = closeEditor;
+		attClose.addEventListener("click", closeEditor);
 	}
-	var btnClose = editorDocument.getElementById("btnClose");
-	if( btnClose ){
-		btnClose.onclick = closeEditor;
+	var btnApply = editorDocument.getElementById("btnApply");
+	if( btnApply ){
+		btnApply.addEventListener("click", applySource);
 	}
 }
 
 function closeEditor(){
+	editorFrame.style.display = "none";
+	editorDocument.head.innerHTML = "";
+	editorDocument.body.innerHTML = "";
+}
+
+function applySource(){
 	editorFrame.style.display = "none";
 	setSource(editorDocument.getElementById("source").value);
 	editorDocument.head.innerHTML = "";

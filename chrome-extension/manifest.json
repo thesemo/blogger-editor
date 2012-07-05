@@ -1,6 +1,6 @@
 {
   "name": "Blogger Template Editor",
-  "version": "0.1",
+  "version": "0.2",
   "description": "An editor for blogger template",
   "background" : {
     "page": "background.html"

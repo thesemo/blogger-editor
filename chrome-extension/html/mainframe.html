@@ -6,10 +6,10 @@
 ${ace.js}
 </script>
 <script type="text/javascript">
-${theme-chrome.js}
+${theme.js}
 </script>
 <script type="text/javascript">
-${mode-html.js}
+${mode.js}
 </script>
 <style>
 #source {
@@ -47,7 +47,7 @@ ${mode-html.js}
 	text-decoration: none;
 }
 
-#btnClose {
+#btnApply {
 	position: absolute;
 	right: 5px;
 	bottom: 5px;
@@ -68,24 +68,29 @@ ${mode-html.js}
 }
 </style>
 </head>
-<body>
-	<textarea id="source">
-${source}
-	</textarea>
+<body onload="onLoad()">
+	<textarea id="source">${source}</textarea>
 	<div id="editor"></div>
 	<a id="attClose" href="#" title="${close.title}">X</a>
-	<button id="btnClose">${close.title}</button>
+	<button id="btnApply" title="${close.title}" onclick="setSource()">Apply</button>
 	<script>
 		var editor = ace.edit("editor");
 		editor.setTheme("ace/theme/chrome");
 		var HtmlMode = require("ace/mode/html").Mode;
 		editor.getSession().setMode(new HtmlMode());
-		
 		var source = document.getElementById("source");
-		editor.insert(source.value);
-		editor.addEventListener("change", function(e){
+
+		function onLoad() {
+			editor.insert(source.value);
+		}
+		
+		function getSource(){
+			return editor.getSession().getDocument().getValue();
+		}
+		
+		function setSource(){
 			source.value = editor.getSession().getDocument().getValue();
-		});
+		}
 	</script>
 </body>
 </html>
